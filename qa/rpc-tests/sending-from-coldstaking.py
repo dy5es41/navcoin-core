@@ -21,7 +21,7 @@ class SendingFromColdStaking(NavCoinTestFramework):
 
     def run_test(self):
         self.nodes[0].staking(False)
-
+        print(self.nodes[0].settxfee(0))
         """generate first 300 blocks to lock in softfork, verify coldstaking is active"""
 
         slow_gen(self.nodes[0], 100)     
