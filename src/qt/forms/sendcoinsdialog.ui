@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>857</width>
-    <height>773</height>
+    <height>0</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -699,7 +699,7 @@
           <string>S&amp;end</string>
          </property>
          <property name="icon">
-          <iconset resource="../navcoin.qrc">
+          <iconset>
            <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
          </property>
          <property name="autoDefault">

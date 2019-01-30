@@ -133,6 +133,7 @@ NavCoinGUI::NavCoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
     receiveCoinsMenuAction(0),
     optionsAction(0),
     cfundProposalsAction(0),
+    cfundDonateAction(0),
     cfundPaymentRequestsAction(0),
     toggleHideAction(0),
     encryptWalletAction(0),
@@ -427,6 +428,7 @@ void NavCoinGUI::createActions()
     optionsAction->setMenuRole(QAction::PreferencesRole);
     optionsAction->setEnabled(false);
     cfundProposalsAction = new QAction(tr("Vote for Proposals"), this);
+    cfundDonateAction = new QAction(tr("Donate to the Communtuy Fund"), this);
     cfundPaymentRequestsAction = new QAction(tr("Vote for Payment Requests"), this);
     toggleHideAction = new QAction(platformStyle->TextColorIcon(":/icons/about"), tr("&Show / Hide"), this);
     toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
@@ -479,6 +481,7 @@ void NavCoinGUI::createActions()
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
     connect(cfundProposalsAction, SIGNAL(triggered()), this, SLOT(cfundProposalsClicked()));
+    connect(cfundDonateAction, SIGNAL(triggered()), this, SLOT(cfundProposalsClicked()));
     connect(cfundPaymentRequestsAction, SIGNAL(triggered()), this, SLOT(cfundPaymentRequestsClicked()));
     connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
     connect(showHelpMessageAction, SIGNAL(triggered()), this, SLOT(showHelpMessageClicked()));
@@ -585,6 +588,7 @@ void NavCoinGUI::createMenuBar()
         QMenu *cfund = appMenuBar->addMenu(tr("&Community Fund"));
         cfund->addAction(cfundProposalsAction);
         cfund->addAction(cfundPaymentRequestsAction);
+        cfund->addAction(cfundDonateAction);
     }
     settings->addAction(optionsAction);
 
@@ -885,6 +889,15 @@ void NavCoinGUI::optionsClicked()
 void NavCoinGUI::cfundProposalsClicked()
 {
     if(!clientModel || !clientModel->getOptionsModel())
+        return;
+
+    CFund_Voting dlg(this, false);
+    dlg.exec();
+}
+
+void NavCoinGUI::cfundDonateClicked()
+{
+    if(!clientModel)
         return;
 
     CFund_Voting dlg(this, false);

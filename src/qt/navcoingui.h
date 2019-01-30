@@ -118,6 +118,7 @@ private:
     QAction *receiveCoinsMenuAction;
     QAction *optionsAction;
     QAction *cfundProposalsAction;
+    QAction *cfundDonateAction;
     QAction *cfundPaymentRequestsAction;
     QAction *toggleHideAction;
     QAction *encryptWalletAction;
@@ -252,6 +253,7 @@ private Q_SLOTS:
     /** Community Fund related */
     void cfundProposalsClicked();
     void cfundPaymentRequestsClicked();
+    void cfundDonateClicked();
     /** Show about dialog */
     void aboutClicked();
     /** Show debug window */

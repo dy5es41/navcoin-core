@@ -18,6 +18,12 @@ editaddressdialog.cpp
 editaddressdialog.h
 forms/addressbookpage.ui
 forms/askpassphrasedialog.ui
+forms/cfund_donating.cpp
+forms/cfund_donating.h
+forms/cfund_donating.ui
+forms/cfund_voting.cpp
+forms/cfund_voting.h
+forms/cfund_voting.ui
 forms/coincontroldialog.ui
 forms/debugwindow.ui
 forms/editaddressdialog.ui
