@@ -236,8 +236,10 @@ void SendCoinsDialog::on_sendButton_clicked()
             CAmount nAmount = recipient.amount;
             double nId = rand() % pindexBestHeader->GetMedianTimePast();
 
+            std::cout << "made it\n";
             if(entry->isDonation)
             {
+                std::cout << "donation\n";
                 recipient.address = QString("NQFqqMUD55ZV3PJEJZtaKCsQmjLT6JkjvJ"); // Dummy address
                 recipient.isDonation = true;
             }

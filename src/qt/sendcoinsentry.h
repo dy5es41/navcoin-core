@@ -7,7 +7,9 @@
 
 #include "walletmodel.h"
 
+#include <QCheckBox>
 #include <QStackedWidget>
+#include "guiutil.h"
 
 class WalletModel;
 class PlatformStyle;
@@ -68,7 +70,6 @@ private Q_SLOTS:
     void updateAddressBook();
 
     void on_radioButtonSendAddress_clicked();
-
     void on_radioButtonDonateFund_clicked();
 
 private:
