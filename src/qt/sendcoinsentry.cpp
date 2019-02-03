@@ -22,7 +22,8 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *pare
     ui(new Ui::SendCoinsEntry),
     model(0),
     platformStyle(platformStyle),
-    totalAmount(0)
+    totalAmount(0),
+    isDonation(0)
 {
     ui->setupUi(this);
 
@@ -49,7 +50,6 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *pare
     connect(ui->deleteButton_is, SIGNAL(clicked()), this, SLOT(deleteClicked()));
     connect(ui->deleteButton_s, SIGNAL(clicked()), this, SLOT(deleteClicked()));
     connect(ui->addressBookCheckBox, SIGNAL(clicked()), this, SLOT(updateAddressBook()));
-
     ui->labellLabel->setVisible(ui->addressBookCheckBox->isChecked());
     ui->addAsLabel->setVisible(ui->addressBookCheckBox->isChecked());
 }
@@ -146,7 +146,13 @@ bool SendCoinsEntry::validate()
 
     utils::DNSResolver* DNS = nullptr;
 
+    // Checks that radio button for donation or send address is checked
+    if(!ui->radioButtonDonateFund->isChecked() && !ui->radioButtonSendAddress->isChecked())
+    {
+        retval = false;
+    }
 
+    // Validate openalias address
     if(DNS->check_address_syntax(ui->payTo->text().toStdString().c_str()))
     {
 
@@ -165,7 +171,7 @@ bool SendCoinsEntry::validate()
 
     }
 
-    else if (!model->validateAddress(ui->payTo->text()))
+    else if (!model->validateAddress(ui->payTo->text()) && !isDonation)
     {
         ui->payTo->setValid(false);
         retval = false;
@@ -297,4 +303,21 @@ bool SendCoinsEntry::updateLabel(const QString &address)
     }
 
     return false;
+}
+
+void SendCoinsEntry::on_radioButtonSendAddress_clicked()
+{
+    clear();
+    ui->payTo->setPlaceholderText(QObject::tr("Enter a NavCoin address or OpenAlias address (e.g. %1)").arg(
+        QString::fromStdString("n2wxQmfexkjwEPgdD6iJA7T7RtzkmHxhFcn2wxQmfexkjwEPgdD6iJA7T7RtzkmHxhFc"))); //fake and invalid address which looks realistic
+    ui->payTo->setEnabled(true);
+    isDonation = false;
+}
+
+void SendCoinsEntry::on_radioButtonDonateFund_clicked()
+{
+    clear();
+    ui->payTo->setPlaceholderText(QObject::tr("Community Fund Contribution"));
+    ui->payTo->setEnabled(false);
+    isDonation = true;
 }

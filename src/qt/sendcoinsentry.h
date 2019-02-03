@@ -50,6 +50,7 @@ public:
     void useFullAmount();
 
     CAmount totalAmount;
+    bool isDonation;
 
 public Q_SLOTS:
     void clear();
@@ -65,6 +66,10 @@ private Q_SLOTS:
     void on_addressBookButton_clicked();
     void updateDisplayUnit();
     void updateAddressBook();
+
+    void on_radioButtonSendAddress_clicked();
+
+    void on_radioButtonDonateFund_clicked();
 
 private:
     SendCoinsRecipient recipient;
