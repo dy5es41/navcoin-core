@@ -236,6 +236,12 @@ void SendCoinsDialog::on_sendButton_clicked()
             CAmount nAmount = recipient.amount;
             double nId = rand() % pindexBestHeader->GetMedianTimePast();
 
+            if(entry->isDonation)
+            {
+                recipient.address = QString("NQFqqMUD55ZV3PJEJZtaKCsQmjLT6JkjvJ"); // Dummy address
+                recipient.isDonation = true;
+            }
+
             if(ui->anonsendCheckbox->checkState() != 0) {
                 try
                 {
@@ -425,8 +431,7 @@ void SendCoinsDialog::on_sendButton_clicked()
         QString amount = "<b>" + NavCoinUnits::formatHtmlWithUnit(model->getOptionsModel()->getDisplayUnit(), nTotalAmount);
         amount.append("</b>");
         // generate monospace address string
-        QString address = "<span style='font-family: monospace;'>" + rcp.address;
-        address.append("</span>");
+        QString address = rcp.isDonation ? QString(tr("the community fund")) : "<span style='font-family: monospace;'>" + rcp.address + "</span>";
 
         QString recipientElement;
         int nLength = currentTransaction.recipients.length();
